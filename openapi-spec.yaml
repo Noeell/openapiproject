@@ -45,6 +45,35 @@ paths:
                 $ref: "#/components/schemas/PonyDto"
 components:
   schemas:
+    DriverDto:
+      properties:
+        name:
+          type: string
+          example: Müller
+          minLength: 1
+          maxLength: 255
+        prename:
+          type: string
+          example: Hans
+          minLength: 1
+          maxLength: 255
+        age:
+          type: integer
+          example: 20
+          minimum: 18
+          maximum: 100
+        racingTeam:
+          type: object
+        points:
+          type: integer
+          example: 15
+          minimum: 0
+          maximum: 600
+        country:
+          type: string
+          example: Switzerland
+          minLength: 1
+          maxLength: 255
     PonyDto:
       required:
         - name
