@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class PonyApplication {
 
-	// test
+	// test 2
 	public static void main(String[] args) {
 		SpringApplication.run(PonyApplication.class, args);
 	}
