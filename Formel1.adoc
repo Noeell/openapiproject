@@ -1,0 +1,67 @@
+= Formel 1
+
+=== Objects
+
+. Fahrer
+.. Name
+.. Vorname
+.. Alter
+.. Rennstall
+.. Punkte
+.. Land
+. Rennstall
+.. Name
+.. Teamchef
+.. Motorenhersteller
+.. Land
+.. Punkte
+. Strecke
+.. Name
+.. Ort
+.. Länge
+.. anz.
+Runden
+.. Land
+. Renn-Wochenende
+.. Strecke
+.. Datum
+
+=== UML
+
+[plantuml]
+----
+@startuml
+class Fahrer {
++ Name
++ Vorname
++ Alter
++ Rennstall
++ Punkte
++ Land
+}
+
+class Rennstall{
++ Name
++ Teamchef
++ Motorenhersteller
++ Land
++ Punkte
+}
+
+class Strecke {
++ Name
++ Ort
++ Länge
++ anz. Runden
++ Land
+}
+
+class Rennwochenende {
++ Strecke
++ Datum
+}
+
+Fahrer - Rennstall
+Strecke - Rennwochenende
+@enduml
+----
