@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -39,7 +38,3 @@ src/main/java/org/openapitools/client/auth/HttpBearerAuth.java
 src/main/java/org/openapitools/client/model/DriverDto.java
 src/main/java/org/openapitools/client/model/PonyDto.java
 src/main/java/org/openapitools/client/model/RacingTeamDto.java
-src/test/java/org/openapitools/client/api/DefaultApiTest.java
-src/test/java/org/openapitools/client/model/DriverDtoTest.java
-src/test/java/org/openapitools/client/model/PonyDtoTest.java
-src/test/java/org/openapitools/client/model/RacingTeamDtoTest.java

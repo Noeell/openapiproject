@@ -44,3 +44,39 @@ einer Details-Seite wechseln kann.
 Ich möchte Informationen zu einem Rennwochende sehen.
 Ich möchte bei einem Rennwochenende mehr über die Strecke
 erfahren.
+
+
+=== Sequenz
+
+[plantuml]
+----
+@startuml
+
+actor user
+user -> backend : GET /api/drivers
+user <- backend : List<DriverDTO>
+note left: now I know the Driver ID
+
+
+user -> backend : POST /api/drivers/:id
+user <- backend : 204
+note left: For the Details
+
+
+user -> backend : GET /api/teams
+user <- backend : List<TeamDTO>
+note left: now I know the Team ID
+
+
+user -> backend : POST /api/teams/:id
+user <- backend : 204
+note left: For the Details
+
+
+user -> backend : UPDATE /api/teams/:id
+backend <- user : 204
+note left: switched Driver in a Team
+
+
+@enduml
+

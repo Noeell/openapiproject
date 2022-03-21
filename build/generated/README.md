@@ -2,7 +2,7 @@
 
 Formel 1 API
 - API version: 0.0.1
-  - Build date: 2022-03-21T08:24:38.298162500+01:00[Europe/Berlin]
+  - Build date: 2022-03-21T08:31:32.848540500+01:00[Europe/Berlin]
 
 A small sample API to grasp the basics of the OpenAPI Specification
 
