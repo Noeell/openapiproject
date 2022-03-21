@@ -31,6 +31,32 @@ UC2 --> UC2_1 : UC2
 Ich will einen Fahrer in ein anderes Team wechseln. Ich
 will das aktuelle Team eines Fahrers nachschauen.
 
+=== Sequenz
+
+[plantuml]
+----
+@startuml
+
+actor user
+
+user -> backend : GET /api/teams
+user <- backend : List<TeamDTO>
+note left: now I know the Team ID
+
+
+user -> backend : POST /api/teams/:id
+user <- backend : 204
+note left: For the Details
+
+
+user -> backend : UPDATE /api/teams/:id
+backend <- user : 204
+note left: switched Driver in a Team
+
+
+@enduml
+----
+
 
 == UC-2 Informationen zu Fahrer
 
@@ -38,13 +64,6 @@ Ich möchte auf der Startseite alle Fahrer in einer Card
 sehen. Ich möchte in der Card die wichtigsten
 Informationen sehen und einen Button, mit dem ich zu
 einer Details-Seite wechseln kann.
-
-
-== UC-3 Informationen zu Rennwochenende
-Ich möchte Informationen zu einem Rennwochende sehen.
-Ich möchte bei einem Rennwochenende mehr über die Strecke
-erfahren.
-
 
 === Sequenz
 
@@ -63,20 +82,10 @@ user <- backend : 204
 note left: For the Details
 
 
-user -> backend : GET /api/teams
-user <- backend : List<TeamDTO>
-note left: now I know the Team ID
-
-
-user -> backend : POST /api/teams/:id
-user <- backend : 204
-note left: For the Details
-
-
-user -> backend : UPDATE /api/teams/:id
-backend <- user : 204
-note left: switched Driver in a Team
-
-
 @enduml
 
+----
+== UC-3 Informationen zu Rennwochenende
+Ich möchte Informationen zu einem Rennwochende sehen.
+Ich möchte bei einem Rennwochenende mehr über die Strecke
+erfahren.

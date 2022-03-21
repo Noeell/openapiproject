@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Ponyhof API
+ * Formel 1 API
  * A small sample API to grasp the basics of the OpenAPI Specification
  *
  * The version of the OpenAPI document: 0.0.1
@@ -15,16 +15,30 @@
 
 import * as runtime from '../runtime';
 import {
+    DriverDto,
+    DriverDtoFromJSON,
+    DriverDtoToJSON,
     PonyDto,
     PonyDtoFromJSON,
     PonyDtoToJSON,
+    RacingTeamDto,
+    RacingTeamDtoFromJSON,
+    RacingTeamDtoToJSON,
 } from '../models';
 
 export interface AddPonyRequest {
     ponyDto: PonyDto;
 }
 
+export interface DriverGetRequest {
+    limit?: number;
+}
+
 export interface GetPoniesRequest {
+    limit?: number;
+}
+
+export interface RacingteamGetRequest {
     limit?: number;
 }
 
@@ -67,6 +81,36 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * List all drivers (funktioniert noch nicht)
+     */
+    async driverGetRaw(requestParameters: DriverGetRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<DriverDto>>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/driver`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(DriverDtoFromJSON));
+    }
+
+    /**
+     * List all drivers (funktioniert noch nicht)
+     */
+    async driverGet(requestParameters: DriverGetRequest = {}, initOverrides?: RequestInit): Promise<Array<DriverDto>> {
+        const response = await this.driverGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * List all ponies
      */
     async getPoniesRaw(requestParameters: GetPoniesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<PonyDto>>> {
@@ -93,6 +137,36 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getPonies(requestParameters: GetPoniesRequest = {}, initOverrides?: RequestInit): Promise<Array<PonyDto>> {
         const response = await this.getPoniesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List all Racing Teams (funktioniert noch nicht)
+     */
+    async racingteamGetRaw(requestParameters: RacingteamGetRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<RacingTeamDto>>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/racingteam`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RacingTeamDtoFromJSON));
+    }
+
+    /**
+     * List all Racing Teams (funktioniert noch nicht)
+     */
+    async racingteamGet(requestParameters: RacingteamGetRequest = {}, initOverrides?: RequestInit): Promise<Array<RacingTeamDto>> {
+        const response = await this.racingteamGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

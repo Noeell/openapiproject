@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Ponyhof API
+ * Formel 1 API
  * A small sample API to grasp the basics of the OpenAPI Specification
  *
  * The version of the OpenAPI document: 0.0.1
