@@ -6,6 +6,7 @@
 package ch.bbw.m226.openapi.generated.controller;
 
 import ch.bbw.m226.openapi.generated.dto.DriverDto;
+import ch.bbw.m226.openapi.generated.dto.PonyDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -33,7 +34,6 @@ import javax.annotation.Generated;
 @Validated
 @Tag(name = "driver", description = "the driver API")
 public interface DriverApi {
-
     /**
      * GET /driver : List all drivers (funktioniert noch nicht)
      *
