@@ -13,7 +13,7 @@ paths:
       summary: List all drivers
       responses:
         200:
-          description: An paged array of drivers
+          description: Found Drivers
           content:
             application/json:
               schema:
@@ -31,14 +31,12 @@ paths:
             schema:
               $ref: "#/components/schemas/DriverDto"
       responses:
-        200:
-          description: An paged array of drivers
+        201:
+          description: Created a new driver
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DriverDto"
+                $ref: '#/components/schemas/DriverDto'
   /drivers/{uuid}:
     get:
       tags:
@@ -53,21 +51,13 @@ paths:
           description: String of to uuid to get
       responses:
         200:
-          description: One driver
+          description: Found driver
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/DriverDto'
-        default:
-          description: Default Driver by uuid
-          content:
-            application/json:
-              schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/DriverDto'
+                $ref: '#/components/schemas/DriverDto'
+        404:
+          description: No driver found with this uuid
     put:
       tags:
         - Driver
@@ -90,9 +80,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: "#/components/schemas/DriverDto"
+                $ref: '#/components/schemas/DriverDto'
+        404:
+          description: No driver found with this uuid
     delete:
       tags:
         - Driver
@@ -110,17 +100,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/DriverDto'
-        default:
-          description: Default Driver by uuid
-          content:
-            application/json:
-              schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/DriverDto'
+                $ref: '#/components/schemas/DriverDto'
+        404:
+          description: No driver found with this uuid
   /racingteam:
     get:
       tags:
@@ -146,14 +128,12 @@ paths:
             schema:
               $ref: "#/components/schemas/RacingTeamDto"
       responses:
-        200:
-          description: An paged array of drivers
+        201:
+          description: Added a new Racing Team
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/RacingTeamDto"
+                $ref: '#/components/schemas/RacingTeamDto'
   /racingteam/{uuid}:
     get:
       tags:
@@ -172,17 +152,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/RacingTeamDto'
-        default:
-          description: Default Racing Team by uuid
-          content:
-            application/json:
-              schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/RacingTeamDto'
+                $ref: '#/components/schemas/RacingTeamDto'
+        404:
+          description: No Racing Team found with this uuid
     put:
       tags:
         - Racing Team
@@ -205,9 +177,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: "#/components/schemas/RacingTeamDto"
+                $ref: '#/components/schemas/RacingTeamDto'
+        404:
+          description: No Racing Team found with this uuid
     delete:
       tags:
         - Racing Team
@@ -225,17 +197,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/RacingTeamDto'
-        default:
-          description: Default Racing Team by uuid
-          content:
-            application/json:
-              schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/RacingTeamDto'
+                $ref: '#/components/schemas/RacingTeamDto'
+        404:
+          description: No Racing Team found with this uuid
 components:
   schemas:
     DriverDto:
