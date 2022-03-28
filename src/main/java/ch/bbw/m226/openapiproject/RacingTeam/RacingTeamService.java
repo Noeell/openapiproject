@@ -1,12 +1,15 @@
 package ch.bbw.m226.openapiproject.RacingTeam;
 
+import ch.bbw.m226.openapi.generated.dto.DriverDto;
 import ch.bbw.m226.openapi.generated.dto.RacingTeamDto;
 import ch.bbw.m226.openapiproject.Driver.DriverService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class RacingTeamService {
@@ -30,13 +33,29 @@ public class RacingTeamService {
         createRacingTeam(driverService.astonMartin);
     }
 
-    private List<RacingTeamDto> racingTeamList = new ArrayList<>();
+    private HashMap<String, RacingTeamDto> racingTeamList = new HashMap<>();
 
-    public List<RacingTeamDto> getRacingTeams() {
-        return racingTeamList;
+    public Collection<RacingTeamDto> getRacingTeams() {
+        return racingTeamList.values();
+    }
+
+    public Optional<RacingTeamDto> getRacingTeamByUuid(String uuid) {
+        if (racingTeamList.containsKey(uuid)) {
+            return Optional.of(racingTeamList.get(uuid));
+        }
+        return Optional.empty();
     }
 
     public void createRacingTeam(RacingTeamDto newRacingTeam) {
-        racingTeamList.add(newRacingTeam);
+        String id = UUID.randomUUID().toString();
+        newRacingTeam.uuid(id);
+        racingTeamList.put(id, newRacingTeam);
+    }
+
+    public Optional<RacingTeamDto> getDriverByUuid(String uuid) {
+        if (racingTeamList.containsKey(uuid)) {
+            return Optional.of(racingTeamList.get(uuid));
+        }
+        return Optional.empty();
     }
 }

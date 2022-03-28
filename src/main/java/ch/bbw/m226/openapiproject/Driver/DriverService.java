@@ -56,14 +56,15 @@ public class DriverService {
         driversList.put(id, newDriver);
     }
 
-    public Optional<DriverDto> getDriverByUuid(String uuid){
-        if(driversList.containsKey(uuid)){
+    public Optional<DriverDto> getDriverByUuid(String uuid) {
+        if (driversList.containsKey(uuid)) {
             return Optional.of(driversList.get(uuid));
         }
         return Optional.empty();
     }
-    public Optional<DriverDto> updateDriver(String uuid,DriverDto updatedDriver) {
-        if(driversList.containsKey(uuid)) {
+
+    public Optional<DriverDto> updateDriver(String uuid, DriverDto updatedDriver) {
+        if (driversList.containsKey(uuid)) {
             driversList.put(uuid, updatedDriver.uuid(uuid));
             return Optional.of(updatedDriver);
         }
