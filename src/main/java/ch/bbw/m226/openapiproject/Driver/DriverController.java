@@ -6,23 +6,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/f1/driver")
+@RequestMapping("v1/f1/drivers")
 public class DriverController implements DriverApi {
 
     @Autowired
     private DriverService service;
 
     @GetMapping()
-    public List<DriverDto> getDrivers() {
+    public Collection<DriverDto> getDrivers() {
         return service.getDrivers();
+    }
+
+    @GetMapping("{uuid}")
+    public ResponseEntity<DriverDto> getDriverByUuid(@PathVariable String uuid) {
+        return service.getDriverByUuid(uuid)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping()
     public void createDriver(@RequestBody DriverDto newDriver) {
         service.createDriver(newDriver);
+    }
+
+    @PutMapping("{uuid}")
+    public ResponseEntity<DriverDto> updateDriver(@PathVariable String uuid, @RequestBody DriverDto updatedDriver) {
+        return service.updateDriver(uuid, updatedDriver)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Override

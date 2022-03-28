@@ -6,17 +6,26 @@ info:
 servers:
   - url: http://localhost:8080/api/v1/f1
 paths:
-  /driver:
+  /drivers:
     get:
-      summary: List all drivers (funktioniert noch nicht)
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time
-          required: false
-          schema:
-            type: integer
-            format: int32
+      summary: List all drivers
+      responses:
+        200:
+          description: An paged array of drivers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DriverDto"
+    post:
+      summary: Add a new driver
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DriverDto"
       responses:
         200:
           description: An paged array of drivers
@@ -28,15 +37,7 @@ paths:
                   $ref: "#/components/schemas/DriverDto"
   /racingteam:
     get:
-      summary: List all Racing Teams (funktioniert noch nicht)
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time
-          required: false
-          schema:
-            type: integer
-            format: int32
+      summary: List all Racing Teams
       responses:
         200:
           description: An paged array of Racing Teams
@@ -46,43 +47,23 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/RacingTeamDto"
-  /ponies:
-    get:
-      summary: List all ponies
-      operationId: getPonies
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time
-          required: false
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: An paged array of pets
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PonyDto"
     post:
-      summary: introduce a new pony to the flock
-      operationId: addPony
+      summary: Add a new Racing Team
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PonyDto"
+              $ref: "#/components/schemas/RacingTeamDto"
       responses:
-        201:
-          description: added the pony
+        200:
+          description: An paged array of drivers
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PonyDto"
+                type: array
+                items:
+                  $ref: "#/components/schemas/RacingTeamDto"
 components:
   schemas:
     DriverDto:
@@ -93,6 +74,9 @@ components:
         - country
         - points
       properties:
+        uuid:
+          type: string
+          example: 123e4567-e89b-42d3-a456-556642440000
         name:
           type: string
           example: Müller
@@ -110,6 +94,7 @@ components:
           maximum: 100
         racingTeam:
           type: object
+          $ref: "#/components/schemas/RacingTeamDto"
         points:
           type: integer
           example: 15
@@ -128,41 +113,31 @@ components:
         - country
         - points
       properties:
+        uuid:
+          type: string
+          example: 123e4567-e89b-42d3-a456-556642440000
         name:
           type: string
+          example: TestTeam
           minLength: 1
           maxLength: 255
         teamBoss:
           type: string
+          example: Klaus
           minLength: 1
           maxLength: 255
         engineProducer:
           type: string
+          example: Ferrari
           minLength: 1
           maxLength: 255
         country:
           type: string
+          example: Switzerland
           minLength: 1
           maxLength: 255
         points:
           type: integer
+          example: 0
           minimum: 0
           maximum: 1200
-    PonyDto:
-      required:
-        - name
-        - birthday
-      properties:
-        id:
-          type: integer
-          example: 42
-          minimum: 0
-          readOnly: true
-        name:
-          type: string
-          minLength: 1
-          example: Thunder
-        birthday:
-          type: string
-          format: date
-          example: 2021-01-31
