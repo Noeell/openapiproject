@@ -1,7 +1,8 @@
-.openapi-generator-ignore
 apis/DefaultApi.ts
 apis/index.ts
 index.ts
+models/DriverDto.ts
 models/PonyDto.ts
+models/RacingTeamDto.ts
 models/index.ts
 runtime.ts

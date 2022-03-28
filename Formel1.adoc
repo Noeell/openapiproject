@@ -19,8 +19,7 @@
 .. Name
 .. Ort
 .. Länge
-.. anz.
-Runden
+.. anz. Runden
 .. Land
 . Renn-Wochenende
 .. Strecke

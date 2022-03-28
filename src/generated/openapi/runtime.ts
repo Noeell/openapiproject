@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Ponyhof API
+ * Formel 1 API
  * A small sample API to grasp the basics of the OpenAPI Specification
  *
  * The version of the OpenAPI document: 0.0.1
@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "http://localhost:8080/api".replace(/\/+$/, "");
+export const BASE_PATH = "http://localhost:8080/api/v1/f1".replace(/\/+$/, "");
 
 const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof Blob;
 
