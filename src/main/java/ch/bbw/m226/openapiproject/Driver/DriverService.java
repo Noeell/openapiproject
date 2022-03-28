@@ -5,7 +5,10 @@ import ch.bbw.m226.openapi.generated.dto.RacingTeamDto;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class DriverService {
@@ -50,12 +53,6 @@ public class DriverService {
         return driversList.values();
     }
 
-    public void createDriver(DriverDto newDriver) {
-        String id = UUID.randomUUID().toString();
-        newDriver.uuid(id);
-        driversList.put(id, newDriver);
-    }
-
     public Optional<DriverDto> getDriverByUuid(String uuid) {
         if (driversList.containsKey(uuid)) {
             return Optional.of(driversList.get(uuid));
@@ -63,10 +60,23 @@ public class DriverService {
         return Optional.empty();
     }
 
+    public void createDriver(DriverDto newDriver) {
+        String id = UUID.randomUUID().toString();
+        newDriver.uuid(id);
+        driversList.put(id, newDriver);
+    }
+
     public Optional<DriverDto> updateDriver(String uuid, DriverDto updatedDriver) {
         if (driversList.containsKey(uuid)) {
             driversList.put(uuid, updatedDriver.uuid(uuid));
             return Optional.of(updatedDriver);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<DriverDto> deleteDriver(String uuid) {
+        if (driversList.containsKey(uuid)) {
+            return Optional.of(driversList.remove(uuid));
         }
         return Optional.empty();
     }

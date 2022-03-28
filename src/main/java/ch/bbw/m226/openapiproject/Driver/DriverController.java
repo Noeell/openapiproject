@@ -29,13 +29,21 @@ public class DriverController implements DriverApi {
     }
 
     @PostMapping()
-    public void createDriver(@RequestBody DriverDto newDriver) {
+    public ResponseEntity createDriver(@RequestBody DriverDto newDriver) {
         service.createDriver(newDriver);
+        return ResponseEntity.status(201).build();
     }
 
     @PutMapping("{uuid}")
     public ResponseEntity<DriverDto> updateDriver(@PathVariable String uuid, @RequestBody DriverDto updatedDriver) {
         return service.updateDriver(uuid, updatedDriver)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("{uuid}")
+    public ResponseEntity<DriverDto> deleteDriver(@PathVariable String uuid) {
+        return service.deleteDriver(uuid)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

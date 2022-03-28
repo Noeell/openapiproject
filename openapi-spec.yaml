@@ -8,6 +8,8 @@ servers:
 paths:
   /drivers:
     get:
+      tags:
+        - Drivers
       summary: List all drivers
       responses:
         200:
@@ -19,6 +21,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/DriverDto"
     post:
+      tags:
+        - Drivers
       summary: Add a new driver
       requestBody:
         required: true
@@ -35,8 +39,92 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/DriverDto"
+  /drivers/{uuid}:
+    get:
+      tags:
+        - Driver
+      summary: Returns a driver by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to get
+      responses:
+        200:
+          description: One driver
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/DriverDto'
+        default:
+          description: Default Driver by uuid
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/DriverDto'
+    put:
+      tags:
+        - Driver
+      summary: Update a driver
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DriverDto"
+      responses:
+        200:
+          description: The updated driver
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/DriverDto"
+    delete:
+      tags:
+        - Driver
+      summary: Delete a driver by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to delete
+      responses:
+        200:
+          description: One driver
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/DriverDto'
+        default:
+          description: Default Driver by uuid
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/DriverDto'
   /racingteam:
     get:
+      tags:
+        - Racing Teams
       summary: List all Racing Teams
       responses:
         200:
@@ -48,6 +136,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/RacingTeamDto"
     post:
+      tags:
+        - Racing Teams
       summary: Add a new Racing Team
       requestBody:
         required: true
@@ -64,6 +154,88 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/RacingTeamDto"
+  /racingteam/{uuid}:
+    get:
+      tags:
+        - Racing Team
+      summary: Returns a Racing Team by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to get
+      responses:
+        200:
+          description: One Racing Team
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/RacingTeamDto'
+        default:
+          description: Default Racing Team by uuid
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/RacingTeamDto'
+    put:
+      tags:
+        - Racing Team
+      summary: Update a Racing Team
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RacingTeamDto"
+      responses:
+        200:
+          description: The updated Racing Team
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/RacingTeamDto"
+    delete:
+      tags:
+        - Racing Team
+      summary: Delete a Racing Team by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to delete
+      responses:
+        200:
+          description: One Racing Team
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/RacingTeamDto'
+        default:
+          description: Default Racing Team by uuid
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/RacingTeamDto'
 components:
   schemas:
     DriverDto:
@@ -93,7 +265,6 @@ components:
           minimum: 18
           maximum: 100
         racingTeam:
-          type: object
           $ref: "#/components/schemas/RacingTeamDto"
         points:
           type: integer

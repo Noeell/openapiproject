@@ -1,6 +1,5 @@
 package ch.bbw.m226.openapiproject.RacingTeam;
 
-import ch.bbw.m226.openapi.generated.dto.DriverDto;
 import ch.bbw.m226.openapi.generated.dto.RacingTeamDto;
 import ch.bbw.m226.openapiproject.Driver.DriverService;
 import org.springframework.stereotype.Service;
@@ -52,9 +51,17 @@ public class RacingTeamService {
         racingTeamList.put(id, newRacingTeam);
     }
 
-    public Optional<RacingTeamDto> getDriverByUuid(String uuid) {
+    public Optional<RacingTeamDto> updateRacingTeam(String uuid, RacingTeamDto updatedRacingTeam) {
         if (racingTeamList.containsKey(uuid)) {
-            return Optional.of(racingTeamList.get(uuid));
+            racingTeamList.put(uuid, updatedRacingTeam.uuid(uuid));
+            return Optional.of(updatedRacingTeam);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<RacingTeamDto> deleteRacingTeam(String uuid) {
+        if (racingTeamList.containsKey(uuid)) {
+            return Optional.of(racingTeamList.remove(uuid));
         }
         return Optional.empty();
     }
