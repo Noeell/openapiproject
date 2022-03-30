@@ -96,7 +96,7 @@ paths:
           description: String of to uuid to delete
       responses:
         200:
-          description: One driver
+          description: One driver deleted
           content:
             application/json:
               schema:
@@ -107,10 +107,10 @@ paths:
     get:
       tags:
         - Racing Teams
-      summary: List all Racing Teams
+      summary: List all racing teams
       responses:
         200:
-          description: An paged array of Racing Teams
+          description: An paged array of racing teams
           content:
             application/json:
               schema:
@@ -120,7 +120,7 @@ paths:
     post:
       tags:
         - Racing Teams
-      summary: Add a new Racing Team
+      summary: Add a new racing team
       requestBody:
         required: true
         content:
@@ -129,7 +129,7 @@ paths:
               $ref: "#/components/schemas/RacingTeamDto"
       responses:
         201:
-          description: Added a new Racing Team
+          description: Added a new racing team
           content:
             application/json:
               schema:
@@ -138,7 +138,7 @@ paths:
     get:
       tags:
         - Racing Team
-      summary: Returns a Racing Team by uuid
+      summary: Returns a racing team by uuid
       parameters:
         - in: path
           name: uuid
@@ -148,17 +148,17 @@ paths:
           description: String of to uuid to get
       responses:
         200:
-          description: One Racing Team
+          description: Found one racing team
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RacingTeamDto'
         404:
-          description: No Racing Team found with this uuid
+          description: No racing team found with this uuid
     put:
       tags:
         - Racing Team
-      summary: Update a Racing Team
+      summary: Update a racing team
       parameters:
         - in: path
           name: uuid
@@ -173,17 +173,17 @@ paths:
               $ref: "#/components/schemas/RacingTeamDto"
       responses:
         200:
-          description: The updated Racing Team
+          description: The updated racing team
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RacingTeamDto'
         404:
-          description: No Racing Team found with this uuid
+          description: No racing team found with this uuid
     delete:
       tags:
         - Racing Team
-      summary: Delete a Racing Team by uuid
+      summary: Delete a racing team by uuid
       parameters:
         - in: path
           name: uuid
@@ -193,13 +193,110 @@ paths:
           description: String of to uuid to delete
       responses:
         200:
-          description: One Racing Team
+          description: One racing team deleted
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RacingTeamDto'
         404:
-          description: No Racing Team found with this uuid
+          description: No racing team found with this uuid
+  /tracks:
+    get:
+      tags:
+        - Tracks
+      summary: List all tracks
+      responses:
+        200:
+          description: Found tracks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrackDto"
+    post:
+      tags:
+        - Tracks
+      summary: Add a new track
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrackDto"
+      responses:
+        201:
+          description: Created a new track
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackDto'
+  /tracks/{uuid}:
+    get:
+      tags:
+        - Track
+      summary: Returns a track by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to get
+      responses:
+        200:
+          description: Found track
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackDto'
+        404:
+          description: No track found with this uuid
+    put:
+      tags:
+        - Track
+      summary: Update a track
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrackDto"
+      responses:
+        200:
+          description: The updated track
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackDto'
+        404:
+          description: No track found with this uuid
+    delete:
+      tags:
+        - Track
+      summary: Delete a track by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to delete
+      responses:
+        200:
+          description: One track deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackDto'
+        404:
+          description: No track found with this uuid
 components:
   schemas:
     DriverDto:
@@ -276,3 +373,39 @@ components:
           example: 0
           minimum: 0
           maximum: 1200
+    TrackDto:
+      required:
+        - name
+        - location
+        - lenght
+        - country
+        - rounds
+      properties:
+        uuid:
+          type: string
+          example: 123e4567-e89b-42d3-a456-556642440000
+        name:
+          type: string
+          example: Red Bull Ring
+          minLength: 1
+          maxLength: 255
+        location:
+          type: string
+          example: Steiermark
+          minLength: 1
+          maxLength: 255
+        lenght:
+          type: double
+          example: 5.44
+          minLength: 1
+          maxLength: 255
+        country:
+          type: string
+          example: Switzerland
+          minLength: 1
+          maxLength: 255
+        rounds:
+          type: integer
+          example: 50
+          minimum: 0
+          maximum: 120
