@@ -13,12 +13,25 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    RacingTeamDto,
+    RacingTeamDtoFromJSON,
+    RacingTeamDtoFromJSONTyped,
+    RacingTeamDtoToJSON,
+} from './RacingTeamDto';
+
 /**
  * 
  * @export
  * @interface DriverDto
  */
 export interface DriverDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof DriverDto
+     */
+    uuid?: string;
     /**
      * 
      * @type {string}
@@ -39,10 +52,10 @@ export interface DriverDto {
     age: number;
     /**
      * 
-     * @type {object}
+     * @type {RacingTeamDto}
      * @memberof DriverDto
      */
-    racingTeam?: object;
+    racingTeam?: RacingTeamDto;
     /**
      * 
      * @type {number}
@@ -67,10 +80,11 @@ export function DriverDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     }
     return {
         
+        'uuid': !exists(json, 'uuid') ? undefined : json['uuid'],
         'name': json['name'],
         'prename': json['prename'],
         'age': json['age'],
-        'racingTeam': !exists(json, 'racingTeam') ? undefined : json['racingTeam'],
+        'racingTeam': !exists(json, 'racingTeam') ? undefined : RacingTeamDtoFromJSON(json['racingTeam']),
         'points': json['points'],
         'country': json['country'],
     };
@@ -85,10 +99,11 @@ export function DriverDtoToJSON(value?: DriverDto | null): any {
     }
     return {
         
+        'uuid': value.uuid,
         'name': value.name,
         'prename': value.prename,
         'age': value.age,
-        'racingTeam': value.racingTeam,
+        'racingTeam': RacingTeamDtoToJSON(value.racingTeam),
         'points': value.points,
         'country': value.country,
     };

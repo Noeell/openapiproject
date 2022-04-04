@@ -9,7 +9,10 @@ const HeaderLink = ({page, display, selected}) => {
 };
 
 export default function Header(){
-    const page = window.location.pathname.replace('/', '') || 'drivers';
+    let page = window.location.href.replace('http://localhost:3000/#/','');
+    if (page === 'http://localhost:3000/'){
+        page = 'drivers';
+    }
     return (
         <div>
             <br/>
