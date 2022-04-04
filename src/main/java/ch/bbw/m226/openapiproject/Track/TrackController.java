@@ -1,4 +1,4 @@
-package ch.bbw.m226.openapiproject.track;
+package ch.bbw.m226.openapiproject.Track;
 
 import ch.bbw.m226.openapi.generated.dto.TrackDto;
 import org.springframework.beans.factory.annotation.Autowired;
