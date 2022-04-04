@@ -1,0 +1,34 @@
+.header {
+    display: flex;
+    justify-content: center;
+}
+
+.headerlink-title {
+    color: black;
+    text-decoration: none;
+    padding: 0 5px;
+}
+
+.headerlink-dot {
+    margin-top: -0.5rem;
+    opacity: 0;
+    transition: opacity 200ms linear;
+}
+
+.headerlink-dot {
+    opacity: 0;
+}
+
+.headerlink-title:focus  {
+    opacity: 1;
+}
+
+.headerlink-dot-active {
+    opacity: 1;
+    margin-top: -0.5rem;
+    display: block;
+}
+
+.headerlink-no-link {
+    pointer-events: none;
+}
