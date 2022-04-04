@@ -1,6 +1,6 @@
 = Formel 1
 
-=== Objects
+== Objects
 
 . Fahrer
 .. Name
@@ -21,12 +21,10 @@
 .. Länge
 .. anz. Runden
 .. Land
-. Renn-Wochenende
-.. Strecke
-.. Datum
 
-=== UML
+== UML
 
+.UML Formel 1
 [plantuml]
 ----
 @startuml
@@ -55,12 +53,175 @@ class Strecke {
 + Land
 }
 
-class Rennwochenende {
-+ Strecke
-+ Datum
-}
-
 Fahrer - Rennstall
-Strecke - Rennwochenende
 @enduml
 ----
+
+== Usecases
+
+
+.usecasediagramm Formel 1
+[plantuml]
+----
+@startuml
+left to right direction
+
+rectangle Driver {
+    usecase "new Driver" as UC1
+    usecase "Table with Infos" as UC2
+    usecase "Details" as UC2_1
+}
+
+rectangle GP {
+    usecase "Tracks" as UC3
+}
+
+user --> UC3 : UC3
+user --> UC1 : UC1
+user --> UC2 : UC2
+UC2 --> UC2_1 : UC2
+
+@enduml
+----
+
+
+=== UC-1 neuer Fahrer
+
+Ich möchte einen neuen Fahrer hinzufügen. Ich will selber
+entscheiden wie der Fahrer heisst etc.
+
+=== Sequenz
+
+.Usecasediagramm neuer Fahrer
+[plantuml]
+----
+@startuml
+
+actor user
+
+user -> backend : POST /api/drivers
+note right: Alle Attribute manuell hinzufügen
+backend -> user : 204
+note left: Neuer Driver erstellt
+
+
+@enduml
+----
+
+
+=== UC-2 Informationen zu Fahrer
+
+Ich möchte auf der Startseite alle Fahrer in einer Tabelle
+sehen. Ich möchte in der Tabelle die wichtigsten
+Informationen sehen und einen Button, mit dem ich zu
+einer Details-Seite wechseln kann.
+
+=== Sequenz
+
+.Informationen zu Fahrer
+[plantuml]
+----
+@startuml
+
+actor user
+user -> backend : GET /api/drivers
+user <- backend : List<DriverDTO>
+note left: now I know the Driver ID
+
+
+user -> backend : GET /api/drivers/:id
+user <- backend : 204
+note left: For the Details
+
+
+@enduml
+
+----
+=== UC-3 Informationen zu den Strecken
+Ich möchte sehen welche Rennstrecken es alles gibt.
+Ich möchte Informationen zu den Strecken sehen in einer Liste.
+
+.Informationen zu den Strecken
+[plantuml]
+----
+@startuml
+
+actor user
+user -> backend : GET /api/tracks
+user <- backend : List<DriverDTO>
+note left: now I know all Tracks
+
+@enduml
+----
+
+== Testcases
+
+=== TC-1 neuer Fahrer
+
+[cols="1,1"]
+|===
+|Typ |Beschreibung
+
+|beschreibung
+|Ich möchte einen neuen Fahrer zur Formel 1 hinzufügen.
+
+|Vorbereitung
+|Springboot Backend läuft, NG serve für das Frontend läuft
+
+|Testcase
+|1. Die Liste aller Fahrer aufrufen +
+2. Auf Button "new Driver klicken" +
+3. Alle Informationen zum neuen Fahrer einschreiben
+
+|Ergebnis
+|Es wurde ein neuer Fahrer der Liste hinzugefügt und dieser
+wird auch in der Tabelle dargestellt, wie die anderen.
+|===
+
+=== TC-2 Informationen zu Fahrer
+
+[cols="1,1"]
+|===
+|Typ |Beschreibung
+
+|beschreibung
+|Ich intressiere mich für die Fahrer und möchte gerne mehr
+über sie erfahren als die wenigen Infos, die in der Tabelle
+stehen.
+
+|Vorbereitung
+|Springboot Backend läuft, NG serve für das Frontend läuft
+
+|Testcase
+|1. Die Liste aller Fahrer aufrufen +
+2. gewünschten Fahrer auswählen +
+3. Button "Details" klicken +
+4. Die detailierteren Infos über den Fahrer anschauen
+
+|Ergebnis
+|Es wurde eine neue Seite aufgerufen in dem zu einem gewünschten
+Fahrer detailiertere Informationen angezeigt werden.
+|===
+
+=== TC-1 Informationen zu den Strecken
+
+[cols="1,1"]
+|===
+|Typ |Beschreibung
+
+|beschreibung
+|Ich intressiere mich für die Rennstrecken, ich würde gerne
+wissen wo dieses jahr überall Rennen stattfinden und ein
+paar Infos zu der Rennstrecke.
+
+|Vorbereitung
+|Springboot Backend läuft, NG serve für das Frontend läuft
+
+|Testcase
+|1. Die Liste aller Rennstrecken aufrufen +
+2. Die gewünschten Rennstrecken anschauen
+
+|Ergebnis
+|Es wurden alle Rennstrecken, in denen es dieses Jahr ein
+Rennen gibt, in einer Tabelle angezeigt.
+|===

@@ -1,8 +1,13 @@
-apis/DefaultApi.ts
+apis/DriverApi.ts
+apis/DriversApi.ts
+apis/RacingTeamApi.ts
+apis/RacingTeamsApi.ts
+apis/TrackApi.ts
+apis/TracksApi.ts
 apis/index.ts
 index.ts
 models/DriverDto.ts
-models/PonyDto.ts
 models/RacingTeamDto.ts
+models/TrackDto.ts
 models/index.ts
 runtime.ts

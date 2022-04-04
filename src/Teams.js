@@ -6,16 +6,7 @@ function Teams() {
 
     return (
         <>
-            <Navbar bg="light">
-                <Container>
-                    <Navbar.Brand>
-                        Formel 1
-                    </Navbar.Brand>
-                    <Navbar.Text>
-                        <Header/>
-                    </Navbar.Text>
-                </Container>
-            </Navbar>
+            <Header/>
             <Container>
                 Teams...
             </Container>

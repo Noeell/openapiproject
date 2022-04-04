@@ -58,16 +58,7 @@ function Drivers() {
     }
     return (
         <>
-            <Navbar bg="light">
-                <Container>
-                    <Navbar.Brand>
-                        Formel 1
-                    </Navbar.Brand>
-                    <Navbar.Text>
-                        <Header/>
-                    </Navbar.Text>
-                </Container>
-            </Navbar><br/>
+            <Header/>
             <Container>
                 <Row>
                     <Col>
@@ -102,6 +93,7 @@ function Drivers() {
             </Container>
         </>
     );
+
 }
 
 export default Drivers;

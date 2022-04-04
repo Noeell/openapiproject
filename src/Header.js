@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import {Container, Navbar} from "react-bootstrap";
 
 const HeaderLink = ({page, display, selected}) => {
     const title = page.charAt(0).toUpperCase() + page.slice(1);
@@ -8,15 +9,28 @@ const HeaderLink = ({page, display, selected}) => {
     </Link>;
 };
 
-export default function Header(){
-    const page = window.location.pathname.replace('/', '') || 'drivers';
+export default function Header() {
+    let page = window.location.href.replace('http://localhost:3000/#/', '');
+    if (page === 'http://localhost:3000/') {
+        page = 'drivers';
+    }
     return (
-        <div>
-            <br/>
-            <div className='header'>
-                <HeaderLink page='drivers' selected={page === 'drivers'}/>
-                <HeaderLink page='teams' selected={page === 'teams'}/>
-            </div>
-        </div>
+        <nav class="navbar navbar-dark bg-primary">
+            <Container>
+                <Navbar.Brand>
+                    Formel 1
+                </Navbar.Brand>
+                <Navbar.Text>
+                    <div>
+                        <br/>
+                        <div className='header'>
+                            <HeaderLink page='drivers' selected={page === 'drivers'}/>
+                            <HeaderLink page='teams' selected={page === 'teams'}/>
+                        </div>
+                    </div>
+                </Navbar.Text>
+            </Container>
+        </nav>
+
     );
 };

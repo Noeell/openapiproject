@@ -24,6 +24,12 @@ export interface RacingTeamDto {
      * @type {string}
      * @memberof RacingTeamDto
      */
+    uuid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RacingTeamDto
+     */
     name: string;
     /**
      * 
@@ -61,6 +67,7 @@ export function RacingTeamDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
+        'uuid': !exists(json, 'uuid') ? undefined : json['uuid'],
         'name': json['name'],
         'teamBoss': json['teamBoss'],
         'engineProducer': json['engineProducer'],
@@ -78,6 +85,7 @@ export function RacingTeamDtoToJSON(value?: RacingTeamDto | null): any {
     }
     return {
         
+        'uuid': value.uuid,
         'name': value.name,
         'teamBoss': value.teamBoss,
         'engineProducer': value.engineProducer,
