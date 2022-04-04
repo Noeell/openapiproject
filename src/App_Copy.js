@@ -72,7 +72,7 @@ function PonyTable() {
     )
 }
 
-function App_copy() {
+export default function App_copy() {
     return (
         <>
             <Navbar bg="light">
@@ -92,5 +92,3 @@ function App_copy() {
         </>
     );
 }
-
-export default App_copy;

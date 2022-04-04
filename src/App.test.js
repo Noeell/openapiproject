@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import App_copy from './App_copy';
+import App from './App';
 
 test('contains the add pony button', () => {
-  render(<App_copy />);
+  render(<App />);
   const linkElement = screen.getByText(/Add Pony/i);
   expect(linkElement).toBeInTheDocument();
 });
