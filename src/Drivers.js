@@ -1,4 +1,4 @@
-import {Button, Container, Form, Image, Navbar, Table} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import Header from "./Header";
 
 function Drivers() {
@@ -6,16 +6,7 @@ function Drivers() {
 
     return (
         <>
-            <Navbar bg="light">
-                <Container>
-                    <Navbar.Brand>
-                        Formel 1
-                    </Navbar.Brand>
-                    <Navbar.Text>
-                        <Header/>
-                    </Navbar.Text>
-                </Container>
-            </Navbar>
+            <Header/>
             <Container>
                 Drivers...
             </Container>
