@@ -6,83 +6,297 @@ info:
 servers:
   - url: http://localhost:8080/api/v1/f1
 paths:
-  /driver:
+  /drivers:
     get:
-      summary: List all drivers (funktioniert noch nicht)
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time
-          required: false
-          schema:
-            type: integer
-            format: int32
+      tags:
+        - Drivers
+      summary: List all drivers
       responses:
         200:
-          description: An paged array of drivers
+          description: Found Drivers
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/DriverDto"
-  /racingteam:
+    post:
+      tags:
+        - Drivers
+      summary: Add a new driver
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DriverDto"
+      responses:
+        201:
+          description: Created a new driver
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverDto'
+  /drivers/{uuid}:
     get:
-      summary: List all Racing Teams (funktioniert noch nicht)
+      tags:
+        - Driver
+      summary: Returns a driver by uuid
       parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time
-          required: false
+        - in: path
+          name: uuid
           schema:
-            type: integer
-            format: int32
+            type: string
+          required: true
+          description: String of to uuid to get
       responses:
         200:
-          description: An paged array of Racing Teams
+          description: Found driver
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverDto'
+        404:
+          description: No driver found with this uuid
+    put:
+      tags:
+        - Driver
+      summary: Update a driver
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DriverDto"
+      responses:
+        200:
+          description: The updated driver
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverDto'
+        404:
+          description: No driver found with this uuid
+    delete:
+      tags:
+        - Driver
+      summary: Delete a driver by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to delete
+      responses:
+        200:
+          description: One driver deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverDto'
+        404:
+          description: No driver found with this uuid
+  /racingteam:
+    get:
+      tags:
+        - Racing Teams
+      summary: List all racing teams
+      responses:
+        200:
+          description: An paged array of racing teams
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/RacingTeamDto"
-  /ponies:
-    get:
-      summary: List all ponies
-      operationId: getPonies
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time
-          required: false
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: An paged array of pets
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PonyDto"
     post:
-      summary: introduce a new pony to the flock
-      operationId: addPony
+      tags:
+        - Racing Teams
+      summary: Add a new racing team
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PonyDto"
+              $ref: "#/components/schemas/RacingTeamDto"
       responses:
         201:
-          description: added the pony
+          description: Added a new racing team
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PonyDto"
+                $ref: '#/components/schemas/RacingTeamDto'
+  /racingteam/{uuid}:
+    get:
+      tags:
+        - Racing Team
+      summary: Returns a racing team by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to get
+      responses:
+        200:
+          description: Found one racing team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RacingTeamDto'
+        404:
+          description: No racing team found with this uuid
+    put:
+      tags:
+        - Racing Team
+      summary: Update a racing team
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RacingTeamDto"
+      responses:
+        200:
+          description: The updated racing team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RacingTeamDto'
+        404:
+          description: No racing team found with this uuid
+    delete:
+      tags:
+        - Racing Team
+      summary: Delete a racing team by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to delete
+      responses:
+        200:
+          description: One racing team deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RacingTeamDto'
+        404:
+          description: No racing team found with this uuid
+  /tracks:
+    get:
+      tags:
+        - Tracks
+      summary: List all tracks
+      responses:
+        200:
+          description: Found tracks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrackDto"
+    post:
+      tags:
+        - Tracks
+      summary: Add a new track
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrackDto"
+      responses:
+        201:
+          description: Created a new track
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackDto'
+  /tracks/{uuid}:
+    get:
+      tags:
+        - Track
+      summary: Returns a track by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to get
+      responses:
+        200:
+          description: Found track
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackDto'
+        404:
+          description: No track found with this uuid
+    put:
+      tags:
+        - Track
+      summary: Update a track
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrackDto"
+      responses:
+        200:
+          description: The updated track
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackDto'
+        404:
+          description: No track found with this uuid
+    delete:
+      tags:
+        - Track
+      summary: Delete a track by uuid
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: String of to uuid to delete
+      responses:
+        200:
+          description: One track deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackDto'
+        404:
+          description: No track found with this uuid
 components:
   schemas:
     DriverDto:
@@ -93,6 +307,9 @@ components:
         - country
         - points
       properties:
+        uuid:
+          type: string
+          example: 123e4567-e89b-42d3-a456-556642440000
         name:
           type: string
           example: Müller
@@ -109,7 +326,7 @@ components:
           minimum: 18
           maximum: 100
         racingTeam:
-          type: object
+          $ref: "#/components/schemas/RacingTeamDto"
         points:
           type: integer
           example: 15
@@ -128,41 +345,67 @@ components:
         - country
         - points
       properties:
+        uuid:
+          type: string
+          example: 123e4567-e89b-42d3-a456-556642440000
         name:
           type: string
+          example: TestTeam
           minLength: 1
           maxLength: 255
         teamBoss:
           type: string
+          example: Klaus
           minLength: 1
           maxLength: 255
         engineProducer:
           type: string
+          example: Ferrari
           minLength: 1
           maxLength: 255
         country:
           type: string
+          example: Switzerland
           minLength: 1
           maxLength: 255
         points:
           type: integer
+          example: 0
           minimum: 0
           maximum: 1200
-    PonyDto:
+    TrackDto:
       required:
         - name
-        - birthday
+        - location
+        - lenght
+        - country
+        - rounds
       properties:
-        id:
-          type: integer
-          example: 42
-          minimum: 0
-          readOnly: true
+        uuid:
+          type: string
+          example: 123e4567-e89b-42d3-a456-556642440000
         name:
           type: string
+          example: Red Bull Ring
           minLength: 1
-          example: Thunder
-        birthday:
+          maxLength: 255
+        location:
           type: string
-          format: date
-          example: 2021-01-31
+          example: Steiermark
+          minLength: 1
+          maxLength: 255
+        lenght:
+          type: double
+          example: 5.44
+          minLength: 1
+          maxLength: 255
+        country:
+          type: string
+          example: Switzerland
+          minLength: 1
+          maxLength: 255
+        rounds:
+          type: integer
+          example: 50
+          minimum: 0
+          maximum: 120
