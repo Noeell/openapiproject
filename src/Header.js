@@ -15,7 +15,7 @@ export default function Header() {
         page = 'drivers';
     }
     return (
-        <nav class="navbar navbar-dark bg-primary">
+        <nav className="navbar navbar-dark bg-primary">
             <Container>
                 <Navbar.Brand>
                     Formel 1

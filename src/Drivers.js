@@ -35,10 +35,10 @@ function Drivers() {
     const [insertPressed, setInsertPressed] = useState();
     const [pageSize, setPageSize] = useState(5);
 
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [age, setAge] = useState();
-    const [country, setCountry] = useState();
+    const [country, setCountry] = useState("");
     const [points, setPoints] = useState();
 
     const [isPending, setIsPending] = useState(true);
@@ -47,7 +47,7 @@ function Drivers() {
     const [alertSeverity, setAlertSeverity] = useState('');
 
     useEffect(() => {
-        loadAllEntries()
+        loadAllEntries();
     }, [])
 
     useEffect(() => {
@@ -121,10 +121,7 @@ function Drivers() {
             }
 
             addNewDriver(newDriver)
-                .catch(error => {
-                    console.error(error);
-                    errorPopup(error);
-                })
+                .catch(error => console.error(error))
                 .finally(loadAllEntries);
             setInsertPressed(false);
             setSelectedRacingTeam({});
@@ -205,11 +202,17 @@ function Drivers() {
     }
 
     const handleEditRowsChange = (id) => {
-        updateRow(id, editedRow[id])
+        updateRow(id, editedRow[id]);
     }
 
     const handleIT = (row) => {
-        setEditedRow(row)
+        setEditedRow(row);
+    }
+
+    function errorPopup(text) {
+        setAlertContent(text);
+        setAlertSeverity("error");
+        setAlert(true);
     }
 
     var deleteDisabled = selectedRow.length === 0;
@@ -228,12 +231,6 @@ function Drivers() {
         )
     }
 
-    function errorPopup(text) {
-        setAlertContent(text);
-        setAlertSeverity("error");
-        setAlert(true);
-    }
-
     return (
         <>
             <Header/><br/>
@@ -242,7 +239,6 @@ function Drivers() {
                     <Col>
                         <h2>Drivers</h2>
                     </Col>
-
                 </Row><br/>{isPending && <Loading/>}
                 <Row>
                     {drivers.length > 0 && <DataGrid
