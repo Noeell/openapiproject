@@ -1,17 +1,36 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
 import Header from "./Header";
 import {DataGrid} from '@mui/x-data-grid';
-import {addNewDriver, driversUuidDelete, getDriverByUuid, getDrivers, getRacingTeams} from "./ApiForDrivers";
+import {
+    addNewDriver,
+    driversUuidDelete,
+    getDriverByUuid,
+    getDrivers,
+    getRacingTeams,
+    updateDriver
+} from "./ApiForDrivers";
 import {useEffect, useState} from "react";
-import {Card, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {
+    Autocomplete,
+    Box,
+    ButtonGroup,
+    Card,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField
+} from "@mui/material";
 import Loading from "./Loading";
+import {data} from "./Countries";
+import './drivers.css'
 
 function Drivers() {
     const [drivers, setDrivers] = useState([]);
     const [racingTeams, setRacingTeams] = useState([]);
     const [selectedRacingTeam, setSelectedRacingTeam] = useState({});
-    const [selectedRow, setSelectedRow] = useState();
-    const [editedCell, setEditedCell] = useState();
+    const [selectedRow, setSelectedRow] = useState([]);
+    const [editedRow, setEditedRow] = useState({});
     const [insertPressed, setInsertPressed] = useState();
     const [pageSize, setPageSize] = useState(5);
 
@@ -35,7 +54,6 @@ function Drivers() {
 
     function loadAllEntries() {
         setIsPending(true);
-        console.log(drivers);
         getDrivers()
             .then(data => {
                 setIsPending(false);
@@ -90,8 +108,8 @@ function Drivers() {
                 .finally(loadAllEntries);
             setInsertPressed(false);
             setSelectedRacingTeam({});
+            setCountry("");
         }
-
     }
 
     function deleteRow(listOfUuid) {
@@ -102,17 +120,47 @@ function Drivers() {
         }
     }
 
-    function updateRow() {
+    function updateRow(id, updatedEntry) {
         let driverData;
-        console.log(selectedRow)
-        getDriverByUuid(selectedRow)
-            .then(data => driverData = data)
-            .catch(error => console.error(error));
+        getDriverByUuid(id)
+            .then(data => {
+                driverData = data
+                driverData = {
+                    ...driverData,
+                    name: updatedEntry.name.value,
+                    prename: updatedEntry.prename.value,
+                    age: updatedEntry.age.value,
+                    country: updatedEntry.country.value
+                }
 
-        console.log(driverData)
-        console.log(editedCell)
+                updateDriver(driverData, id)
+                    .then(data => driverData = data)
+                    .catch(error => console.error(error));
+            })
+            .catch(error => console.error(error));
     }
 
+    var deleteDisabled = selectedRow.length === 0;
+
+    function ButtonRow() {
+        return (
+            <Row>
+                <ButtonGroup>
+                    <Button className={"buttonGroup"} onClick={() => setInsertPressed(true)}>Insert</Button>
+                    <Button className={"buttonGroup"} onClick={() => deleteRow(selectedRow)}
+                            disabled={deleteDisabled}>Delete</Button>
+                </ButtonGroup>
+            </Row>
+        )
+    }
+
+    const handleEditRowsChange = (id) => {
+        updateRow(id, editedRow[id])
+    }
+
+    const handleIT = (row) => {
+        setEditedRow(row)
+    }
     return (
         <>
             <Header/><br/>
@@ -134,47 +182,57 @@ function Drivers() {
                         autoWidth
                         autoHeight
                         getRowId={row => row.uuid}
+                        editMode={"row"}
+                        onEditRowsModelChange={e => handleIT(e)}
+                        onRowEditCommit={(e) => handleEditRowsChange(e)}
                         onSelectionModelChange={itm => setSelectedRow(itm)}
-                        onEditRowsModelChange={dd => console.log(dd)}
                     />}
                 </Row><br/>
-                <Row>
-                    <Col>
-                        <Button onClick={() => setInsertPressed(true)}>Insert</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={updateRow}>Update</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={() => deleteRow(selectedRow)}>Delete</Button>
-                    </Col>
-                </Row><br/><br/>
+                <ButtonRow/>
+                <br/><br/>
                 {insertPressed && <Row>
                     <Card sx={{maxWidth: 250}}><br/>
                         <h4>New entry:</h4>
                         <TextField id="standard-basic" label="First name" variant="standard"
-                                   onChange={e => setFirstName(e.target.value)}/>
+                                   onChange={e => setFirstName(e.target.value)} value={firstName}/>
                         <TextField id="standard-basic" label="Last name" variant="standard"
                                    onChange={e => setLastName(e.target.value)}/>
                         <TextField id="standard-basic" label="age" variant="standard" type={"number"}
                                    onChange={e => setAge(e.target.value)}/>
-                        <TextField id="standard-basic" label="Country" variant="standard"
-                                   onChange={e => setCountry(e.target.value)}/>
+                        <Autocomplete
+                            options={data}
+                            onChange={(event, value) => setCountry(value?.label)}
+                            renderOption={(props, option) => (
+                                <Box component="li" sx={{'& > img': {mr: 2, flexShrink: 0}}} {...props}>
+                                    <img
+                                        loading="lazy"
+                                        width="20"
+                                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                                        alt=""
+                                    />
+                                    {option.label} ({option.code})
+                                </Box>
+                            )}
+                            renderInput={(params) => <TextField variant={"standard"} {...params} label="Country"/>}
+                        />
                         <TextField id="standard-basic" label="Points" variant="standard" type={"number"}
                                    onChange={e => setPoints(e.target.value)}/><br/><br/>
                         <InputLabel variant={"standard"}>Racing Team</InputLabel>
                         <FormControl variant={"standard"} fullWidth>
-                            <Select>
-                                <MenuItem onClick={() => setSelectedRacingTeam({})}>
+                            <Select
+                                defaultValue={"None"}
+                                onChange={e => setSelectedRacingTeam(e.target.value)}>
+                                <MenuItem value={"None"}>
                                     None
                                 </MenuItem>
-                                {racingTeams.map((team, idx) => <MenuItem onClick={() => setSelectedRacingTeam(team)}
-                                                                          key={idx}
-                                                                          value={team}>{team.name}</MenuItem>)}
+                                {racingTeams.map((team, idx) => <MenuItem
+                                    key={idx}
+                                    value={team}>{team.name}</MenuItem>)}
                             </Select>
                         </FormControl>
-                        <br/><br/><br/>
-                        <Button onClick={insertEntry} width={"30px"}>Add</Button>
+                        <br/><br/>
+                        <Button onClick={insertEntry} width={"30px"}>Add Entry</Button><br/><br/>
                     </Card>
                 </Row>}
             </Container>
