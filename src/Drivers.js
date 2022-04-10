@@ -11,6 +11,7 @@ import {
 } from "./ApiForDrivers";
 import {useEffect, useState} from "react";
 import {
+    Alert,
     Autocomplete,
     Box,
     ButtonGroup,
@@ -41,6 +42,9 @@ function Drivers() {
     const [points, setPoints] = useState();
 
     const [isPending, setIsPending] = useState(true);
+    const [alert, setAlert] = useState(false);
+    const [alertContent, setAlertContent] = useState('');
+    const [alertSeverity, setAlertSeverity] = useState('');
 
     useEffect(() => {
         loadAllEntries()
@@ -49,7 +53,10 @@ function Drivers() {
     useEffect(() => {
         getRacingTeams()
             .then(data => setRacingTeams(data))
-            .catch(error => console.error(error));
+            .catch(error => {
+                console.error(error);
+                errorPopup(error);
+            });
     }, [insertPressed])
 
     function loadAllEntries() {
@@ -59,7 +66,10 @@ function Drivers() {
                 setIsPending(false);
                 setDrivers(data);
             })
-            .catch(error => console.error(error));
+            .catch(error => {
+                console.error(error);
+                errorPopup(error);
+            });
     }
 
     const columns = [
@@ -77,6 +87,13 @@ function Drivers() {
             field: 'country',
             headerName: 'Country',
             width: 200,
+            editable: true
+        },
+        {
+            field: 'points',
+            headerName: 'Points',
+            type: 'number',
+            width: 100,
             editable: true
         }
     ];
@@ -104,19 +121,50 @@ function Drivers() {
             }
 
             addNewDriver(newDriver)
-                .catch(error => console.error(error))
+                .catch(error => {
+                    console.error(error);
+                    errorPopup(error);
+                })
                 .finally(loadAllEntries);
             setInsertPressed(false);
             setSelectedRacingTeam({});
             setCountry("");
+
+            setAlertContent("Entry successfully added");
+            setAlertSeverity("success");
+            setAlert(true);
+
+            setTimeout(() => {
+                setAlert(false);
+            }, 4000);
+        } else {
+            setAlertContent("Please fill out all input fields");
+            setAlertSeverity("error");
+            setAlert(true);
+
+            setTimeout(() => {
+                setAlert(false);
+            }, 4000);
         }
     }
 
     function deleteRow(listOfUuid) {
         for (let i = 0; i < listOfUuid.length; i++) {
             driversUuidDelete(listOfUuid[i])
-                .then(loadAllEntries)
-                .catch(error => console.error(error));
+                .then(() => {
+                    loadAllEntries()
+                    setAlertContent("Entry successfully deleted");
+                    setAlertSeverity("success");
+                    setAlert(true);
+
+                    setTimeout(() => {
+                        setAlert(false);
+                    }, 4000);
+                })
+                .catch(error => {
+                    console.error(error);
+                    errorPopup(error);
+                });
         }
     }
 
@@ -130,28 +178,30 @@ function Drivers() {
                     name: updatedEntry.name.value,
                     prename: updatedEntry.prename.value,
                     age: updatedEntry.age.value,
-                    country: updatedEntry.country.value
+                    country: updatedEntry.country.value,
+                    points: updatedEntry.points.value
                 }
 
                 updateDriver(driverData, id)
-                    .then(data => driverData = data)
-                    .catch(error => console.error(error));
+                    .then(data => {
+                        driverData = data
+                        setAlertContent("Entry successfully updated");
+                        setAlertSeverity("success");
+                        setAlert(true);
+
+                        setTimeout(() => {
+                            setAlert(false);
+                        }, 4000);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        errorPopup(error);
+                    });
             })
-            .catch(error => console.error(error));
-    }
-
-    var deleteDisabled = selectedRow.length === 0;
-
-    function ButtonRow() {
-        return (
-            <Row>
-                <ButtonGroup>
-                    <Button className={"buttonGroup"} onClick={() => setInsertPressed(true)}>Insert</Button>
-                    <Button className={"buttonGroup"} onClick={() => deleteRow(selectedRow)}
-                            disabled={deleteDisabled}>Delete</Button>
-                </ButtonGroup>
-            </Row>
-        )
+            .catch(error => {
+                console.error(error);
+                errorPopup(error);
+            });
     }
 
     const handleEditRowsChange = (id) => {
@@ -161,6 +211,29 @@ function Drivers() {
     const handleIT = (row) => {
         setEditedRow(row)
     }
+
+    var deleteDisabled = selectedRow.length === 0;
+    var detailsDisabled = selectedRow.length !== 1;
+
+    function ButtonRow() {
+        return (
+            <Row>
+                <ButtonGroup>
+                    <Button className={"buttonGroup"} onClick={() => setInsertPressed(true)}>Insert</Button>
+                    <Button className={"buttonGroup"} onClick={() => deleteRow(selectedRow)}
+                            disabled={deleteDisabled}>Delete</Button>
+                    <Button className={"buttonGroup"} disabled={detailsDisabled}>Details</Button>
+                </ButtonGroup>
+            </Row>
+        )
+    }
+
+    function errorPopup(text) {
+        setAlertContent(text);
+        setAlertSeverity("error");
+        setAlert(true);
+    }
+
     return (
         <>
             <Header/><br/>
@@ -169,6 +242,7 @@ function Drivers() {
                     <Col>
                         <h2>Drivers</h2>
                     </Col>
+
                 </Row><br/>{isPending && <Loading/>}
                 <Row>
                     {drivers.length > 0 && <DataGrid
@@ -234,7 +308,8 @@ function Drivers() {
                         <br/><br/>
                         <Button onClick={insertEntry} width={"30px"}>Add Entry</Button><br/><br/>
                     </Card>
-                </Row>}
+                </Row>}<br/>
+                {alert ? <Alert severity={alertSeverity} onClose={() => setAlert(false)}>{alertContent}</Alert> : <></>}<br/><br/>
             </Container>
         </>
     );
