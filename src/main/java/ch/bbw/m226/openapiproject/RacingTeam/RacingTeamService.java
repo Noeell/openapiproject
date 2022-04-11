@@ -5,8 +5,8 @@ import ch.bbw.m226.openapiproject.Driver.DriverService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,8 +34,8 @@ public class RacingTeamService {
 
     private HashMap<String, RacingTeamDto> racingTeamList = new HashMap<>();
 
-    public Collection<RacingTeamDto> getRacingTeams() {
-        return racingTeamList.values();
+    public List<RacingTeamDto> getRacingTeams() {
+        return racingTeamList.values().stream().toList();
     }
 
     public Optional<RacingTeamDto> getRacingTeamByUuid(String uuid) {

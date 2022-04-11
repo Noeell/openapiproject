@@ -19,7 +19,8 @@
 .. Name
 .. Ort
 .. Länge
-.. anz. Runden
+.. anz.
+Runden
 .. Land
 
 == UML
@@ -59,7 +60,6 @@ Fahrer - Rennstall
 
 == Usecases
 
-
 .usecasediagramm Formel 1
 [plantuml]
 ----
@@ -84,11 +84,10 @@ UC2 --> UC2_1 : UC2
 @enduml
 ----
 
-
 === UC-1 neuer Fahrer
 
-Ich möchte einen neuen Fahrer hinzufügen. Ich will selber
-entscheiden wie der Fahrer heisst etc.
+Ich möchte einen neuen Fahrer hinzufügen.
+Ich will selber entscheiden wie der Fahrer heisst etc.
 
 === Sequenz
 
@@ -99,22 +98,19 @@ entscheiden wie der Fahrer heisst etc.
 
 actor user
 
-user -> backend : POST /api/drivers
+user -> backend : POST /api/v1/f1/drivers
 note right: Alle Attribute manuell hinzufügen
-backend -> user : 204
+backend -> user : 201
 note left: Neuer Driver erstellt
 
 
 @enduml
 ----
 
-
 === UC-2 Informationen zu Fahrer
 
-Ich möchte auf der Startseite alle Fahrer in einer Tabelle
-sehen. Ich möchte in der Tabelle die wichtigsten
-Informationen sehen und einen Button, mit dem ich zu
-einer Details-Seite wechseln kann.
+Ich möchte auf der Startseite alle Fahrer in einer Tabelle sehen.
+Ich möchte in der Tabelle die wichtigsten Informationen sehen und einen Button, mit dem ich zu einer Details-Seite wechseln kann.
 
 === Sequenz
 
@@ -124,20 +120,22 @@ einer Details-Seite wechseln kann.
 @startuml
 
 actor user
-user -> backend : GET /api/drivers
+user -> backend : GET /api/v1/f1/drivers
 user <- backend : List<DriverDTO>
 note left: now I know the Driver ID
 
 
-user -> backend : GET /api/drivers/:id
-user <- backend : 204
+user -> backend : GET /api/v1/f1/drivers/:id
+user <- backend : 200 OK
 note left: For the Details
 
 
 @enduml
 
 ----
+
 === UC-3 Informationen zu den Strecken
+
 Ich möchte sehen welche Rennstrecken es alles gibt.
 Ich möchte Informationen zu den Strecken sehen in einer Liste.
 
@@ -147,8 +145,8 @@ Ich möchte Informationen zu den Strecken sehen in einer Liste.
 @startuml
 
 actor user
-user -> backend : GET /api/tracks
-user <- backend : List<DriverDTO>
+user -> backend : GET /api/v1/f1/tracks
+user <- backend : List<TrackDto>
 note left: now I know all Tracks
 
 @enduml
@@ -225,3 +223,18 @@ paar Infos zu der Rennstrecke.
 |Es wurden alle Rennstrecken, in denen es dieses Jahr ein
 Rennen gibt, in einer Tabelle angezeigt.
 |===
+
+== Persönliches Fazit
+
+=== Noel
+
+Mir hat das Projekt sehr gut gefallen.
+Ich konnte mein Wissen im Frontend & Backend vertiefen und auch Neues dazu lernen.
+OpenAPI kannte ich bis vor diesem Modul noch nicht, jedoch erscheint mir die Idee, zuerst eine Spezifikation zu schreiben, damit man im Frontend und im Backend gleichzeitig entwickeln kann, sehr sinvoll.
+Die freie Themenwahl fand ich gut, denn Formel 1 interessiert mich und es fiel mir so leichter, auch mal abseits der Schule Zeit für das Projekt zu investieren.
+Da ich Material UI sehr gerne mag, entschied ich, dies anstatt Bootstrap zu verwenden.
+Man kann Daten via Buttons einfügen und löschen (auch mehrere gleichzeitig möglich) und das updaten geht direkt in der Tabelle via Doppelklick auf ein Feld (ausser die UUID).
+Ich lernte neue Components von MUI kennen wie z.B. Autocomplete oder Alert.
+Den Autocomplete habe ich dann gleich bei unserem Land input field ausprobiert und die Alerts erscheinen unten auf der Seite beim ausführen der CRUD operationen.
+
+=== Joey

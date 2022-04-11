@@ -1,13 +1,12 @@
-
 import {render, screen} from "@testing-library/react";
 import Teams from "./Teams";
-import {Route, Router} from "react-router-dom";
+import {Router} from "react-router-dom";
 import Drivers from "./Drivers";
 
 describe('testing of team.js', () => {
 
     it('should render without crashing', function () {
-        render(<><Drivers/></>)
+        render(<div><Drivers/></div>)
     });
 
     it('should have insert button enabled', function () {
