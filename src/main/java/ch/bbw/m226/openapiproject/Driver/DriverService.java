@@ -9,7 +9,7 @@ import java.util.*;
 
 @Service
 public class DriverService {
-    public RacingTeamDto redBull = new RacingTeamDto().uuid(UUID.randomUUID().toString()).name("RedBull").teamBoss("Christian Horner").country("Austria").points(0).engineProducer("Red Bull / Honda");
+    public RacingTeamDto redBull = new RacingTeamDto().uuid(UUID.randomUUID().toString()).name("Red Bull").teamBoss("Christian Horner").country("Austria").points(0).engineProducer("Red Bull / Honda");
     public RacingTeamDto mcLaren = new RacingTeamDto().uuid(UUID.randomUUID().toString()).name("McLaren").teamBoss("Andreas Seidl").country("Gross Britanien").points(0).engineProducer("Mercedes");
     public RacingTeamDto astonMartin = new RacingTeamDto().uuid(UUID.randomUUID().toString()).name("Aston Martin").teamBoss("Mike Krack").country("Gross Britanien").points(0).engineProducer("Mercedes");
     public RacingTeamDto williams = new RacingTeamDto().uuid(UUID.randomUUID().toString()).name("Wiliams").teamBoss("Jost Capito").country("Gross Britanien").points(0).engineProducer("Mercedes");

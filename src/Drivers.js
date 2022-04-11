@@ -1,6 +1,5 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
 import Header from "./Header";
-import {DataGrid} from '@mui/x-data-grid';
 import {
     addNewDriver,
     driversUuidDelete,
@@ -25,6 +24,7 @@ import {
 import Loading from "./Loading";
 import {data} from "./Countries";
 import './drivers.css'
+import {DataGrid} from "@mui/x-data-grid";
 
 function Drivers() {
     const [drivers, setDrivers] = useState([]);
@@ -48,6 +48,9 @@ function Drivers() {
 
     useEffect(() => {
         loadAllEntries();
+        if (window.location.href !== "http://localhost:3000/#/drivers"){
+            window.location.href = "http://localhost:3000/#/drivers";
+        };
     }, [])
 
     useEffect(() => {
@@ -225,7 +228,7 @@ function Drivers() {
                     <Button className={"buttonGroup"} onClick={() => setInsertPressed(true)}>Insert</Button>
                     <Button className={"buttonGroup"} onClick={() => deleteRow(selectedRow)}
                             disabled={deleteDisabled}>Delete</Button>
-                    <Button className={"buttonGroup"} disabled={detailsDisabled}>Details</Button>
+                    <Button className={"buttonGroup"} onClick={() => window.location.href = window.location.href + "/" + selectedRow} disabled={detailsDisabled}>Details</Button>
                 </ButtonGroup>
             </Row>
         )
