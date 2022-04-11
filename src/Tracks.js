@@ -1,24 +1,7 @@
 import {useEffect, useState} from "react";
-import {
-    addNewTrack,
-    tracksUuidDelete,
-    getTrackByUuid,
-    getTracks,
-    updateTrack
-} from "./ApiForTracks";
+import {addNewTrack, getTrackByUuid, getTracks, tracksUuidDelete, updateTrack} from "./ApiForTracks";
 import {Button, Col, Container, Row} from "react-bootstrap";
-import {
-    Alert,
-    Autocomplete,
-    Box,
-    ButtonGroup,
-    Card,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField
-} from "@mui/material";
+import {Alert, Autocomplete, Box, ButtonGroup, Card, TextField} from "@mui/material";
 import Header from "./Header";
 import Loading from "./Loading";
 import {DataGrid} from "@mui/x-data-grid";
@@ -66,7 +49,7 @@ export default function Tracks() {
         {field: 'location', headerName: 'Location', width: 150, editable: true},
         {
             field: 'lenght',
-            headerName: 'Lenght',
+            headerName: 'Length',
             type: 'number',
             width: 100,
             editable: true
@@ -87,14 +70,14 @@ export default function Tracks() {
     ];
 
     function insertEntry() {
-        if (name?.trim() !== "" && location?.trim() !== "" && lenght !== 0 && rounds !== 0 && country?.trim() !== "" && name !== undefined && location !== undefined && country !== undefined) {
+        if (name?.trim() !== "" && location?.trim() !== "" && lenght !== 0 && rounds !== undefined && country?.trim() !== "" && name !== undefined && location !== undefined && country !== undefined) {
             let newTrack = {
-                    name: name,
-                    location: location,
-                    length: lenght,
-                    rounds: rounds,
-                    country: country,
-                }
+                name: name,
+                location: location,
+                lenght: lenght,
+                rounds: rounds,
+                country: country,
+            }
 
             addNewTrack(newTrack)
                 .catch(error => console.error(error))
@@ -142,6 +125,7 @@ export default function Tracks() {
 
     function updateRow(id, updatedEntry) {
         let trackData;
+
         getTrackByUuid(id)
             .then(data => {
                 trackData = data
@@ -149,11 +133,10 @@ export default function Tracks() {
                     ...trackData,
                     name: updatedEntry.name.value,
                     location: updatedEntry.location.value,
-                    length: updatedEntry.length.value,
+                    lenght: updatedEntry.lenght.value.toString(),
                     country: updatedEntry.country.value,
                     rounds: updatedEntry.rounds.value
                 }
-
                 updateTrack(trackData, id)
                     .then(data => {
                         trackData = data
@@ -190,7 +173,7 @@ export default function Tracks() {
         setAlert(true);
     }
 
-    var deleteDisabled = selectedRow.length === 0;
+    let deleteDisabled = selectedRow.length === 0;
 
     function ButtonRow() {
         return (
@@ -240,7 +223,7 @@ export default function Tracks() {
                                    onChange={e => setName(e.target.value)}/>
                         <TextField id="standard-basic" label="Location" variant="standard"
                                    onChange={e => setLocation(e.target.value)}/>
-                        <TextField id="standard-basic" label="Lenght" variant="standard" type={"number"}
+                        <TextField id="standard-basic" label="Length" variant="standard" type={"number"}
                                    onChange={e => setLenght(e.target.value)}/>
                         <Autocomplete
                             options={data}
@@ -261,7 +244,6 @@ export default function Tracks() {
                         />
                         <TextField id="standard-basic" label="Rounds" variant="standard" type={"number"}
                                    onChange={e => setRounds(e.target.value)}/><br/><br/>
-                        <br/><br/>
                         <Button onClick={insertEntry} width={"30px"}>Add Entry</Button><br/><br/>
                     </Card>
                 </Row>}<br/>
