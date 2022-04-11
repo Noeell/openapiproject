@@ -5,10 +5,7 @@ import ch.bbw.m226.openapi.generated.dto.RacingTeamDto;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class DriverService {
@@ -49,8 +46,8 @@ public class DriverService {
 
     private HashMap<String, DriverDto> driversList = new HashMap<>();
 
-    public Collection<DriverDto> getDrivers() {
-        return driversList.values();
+    public List<DriverDto> getDrivers() {
+        return driversList.values().stream().toList();
     }
 
     public Optional<DriverDto> getDriverByUuid(String uuid) {

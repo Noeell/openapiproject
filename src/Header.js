@@ -26,6 +26,7 @@ export default function Header() {
                         <div className='header'>
                             <HeaderLink page='drivers' selected={page === 'drivers'}/>
                             <HeaderLink page='teams' selected={page === 'teams'}/>
+                            <HeaderLink page='tracks' selected={page === 'tracks'}/>
                         </div>
                     </div>
                 </Navbar.Text>
