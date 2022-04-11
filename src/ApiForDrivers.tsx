@@ -1,6 +1,5 @@
 import {DriverApi, DriverDto, DriversApi, RacingTeamApi, RacingTeamDto, RacingTeamsApi} from "./generated/openapi";
 
-
 const driversApi = new DriversApi();
 const driverApi = new DriverApi();
 const racingTeamsApi = new RacingTeamsApi();
