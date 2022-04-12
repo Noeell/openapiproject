@@ -23,7 +23,7 @@
 Runden
 .. Land
 
-== UML
+== Klassendiagramm
 
 .UML Formel 1
 [plantuml]
@@ -57,6 +57,17 @@ class Strecke {
 Fahrer - Rennstall
 @enduml
 ----
+
+Unsere Applikation beinhaltet 3 Objekte.
+Fahrer, Rennstall und Strecke.
+Der Fahrer hat die Attribute Name, Vorname Alter, Rennstall, Punkte und Land.
+Der Rennstall besteht aus Name, Teamchef, Motorenhersteller, Land und Punkte.
+Strecke hat die Attribute Name, Ort, Länge, anz.
+Runden und Land.
+
+Der Fahrer hat eine Beziehung zum Rennstall.
+Ein Fahrer hat keinen oder einen Rennstall.
+Ein Rennstall hat keinen, einen oder mehrere Fahrer.
 
 == Usecases
 

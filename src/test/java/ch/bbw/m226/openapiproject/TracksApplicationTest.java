@@ -1,6 +1,6 @@
 package ch.bbw.m226.openapiproject;
 
-import ch.bbw.m226.openapi.generated.dto.RacingTeamDto;
+import ch.bbw.m226.openapi.generated.dto.TrackDto;
 import ch.bbw.m226.openapiproject.Driver.DriverService;
 import ch.bbw.m226.openapiproject.RacingTeam.RacingTeamService;
 import ch.bbw.m226.openapiproject.Track.TrackService;
@@ -15,34 +15,33 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.UUID;
 
-
 @WebFluxTest
 @ExtendWith(SpringExtension.class)
 @Import({RacingTeamService.class, DriverService.class, TrackService.class})
-public class RacingTeamApplicationTest implements WithAssertions {
+public class TracksApplicationTest implements WithAssertions {
 
     @Autowired
     private WebTestClient webClient;
 
     @Test
-    void getAllRacingTeams() {
+    void getAllTracks() {
         var racingTeams = webClient.get()
-                .uri("/v1/f1/racingteam")
+                .uri("/v1/f1/tracks")
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(RacingTeamDto.class)
+                .expectBodyList(TrackDto.class)
                 .returnResult()
                 .getResponseBody();
 
-        assertThat(racingTeams).hasSizeGreaterThanOrEqualTo(9);
+        assertThat(racingTeams).hasSizeGreaterThanOrEqualTo(21);
     }
 
     @Test
-    void addRacingTeam() {
-        var toCreate = new RacingTeamDto().uuid(UUID.randomUUID().toString()).name("RedBull").teamBoss("Christian Horner").country("Austria").points(0).engineProducer("Red Bull / Honda");
+    void addTrack() {
+        var toCreate = new TrackDto().name("Bahrain International Circuit").country("Bahrain").location("Sachir").rounds(57).lenght(5.412);
         webClient.post()
-                .uri("/v1/f1/racingteam")
+                .uri("/v1/f1/tracks")
                 .bodyValue(toCreate)
                 .exchange()
                 .expectStatus()
@@ -54,7 +53,7 @@ public class RacingTeamApplicationTest implements WithAssertions {
         UUID uuid = UUID.randomUUID();
 
         webClient.delete()
-                .uri("/v1/f1/racingteam/" + uuid)
+                .uri("/v1/f1/tracks/" + uuid)
                 .exchange()
                 .expectStatus()
                 .isNotFound();
@@ -63,10 +62,10 @@ public class RacingTeamApplicationTest implements WithAssertions {
     @Test
     void updateByUnknownUuid() {
         UUID uuid = UUID.randomUUID();
-        var toCreate = new RacingTeamDto().uuid(UUID.randomUUID().toString()).name("RedBull").teamBoss("Christian Horner").country("Austria").points(0).engineProducer("Red Bull / Honda");
+        var toCreate = new TrackDto().name("Bahrain International Circuit").country("Bahrain").location("Sachir").rounds(57).lenght(5.412);
 
         webClient.put()
-                .uri("/v1/f1/racingteam/" + uuid)
+                .uri("/v1/f1/tracks/" + uuid)
                 .bodyValue(toCreate)
                 .exchange()
                 .expectStatus()
@@ -78,7 +77,7 @@ public class RacingTeamApplicationTest implements WithAssertions {
         UUID uuid = UUID.randomUUID();
 
         webClient.get()
-                .uri("/v1/f1/racingteam/" + uuid)
+                .uri("/v1/f1/tracks/" + uuid)
                 .exchange()
                 .expectStatus()
                 .isNotFound();
