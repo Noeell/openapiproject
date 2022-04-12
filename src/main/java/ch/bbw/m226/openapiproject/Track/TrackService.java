@@ -4,8 +4,8 @@ import ch.bbw.m226.openapi.generated.dto.TrackDto;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,8 +40,8 @@ public class TrackService {
 
     private HashMap<String, TrackDto> tracksList = new HashMap<>();
 
-    public Collection<TrackDto> getTracks() {
-        return tracksList.values();
+    public List<TrackDto> getTracks() {
+        return tracksList.values().stream().toList();
     }
 
     public Optional<TrackDto> getTracksByUuid(String uuid) {
