@@ -249,3 +249,8 @@ Ich lernte neue Components von MUI kennen wie z.B. Autocomplete oder Alert.
 Den Autocomplete habe ich dann gleich bei unserem Land input field ausprobiert und die Alerts erscheinen unten auf der Seite beim ausführen der CRUD operationen.
 
 === Joey
+
+== Wireframes
+
+image::Wireframe.jpg[]
+image::Wireframe-Details.jpg[]
