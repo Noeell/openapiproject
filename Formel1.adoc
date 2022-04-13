@@ -111,7 +111,7 @@ actor user
 
 user -> backend : POST /api/v1/f1/drivers
 note right: Alle Attribute manuell hinzufügen
-backend -> user : 200
+backend -> user : 201
 note left: Neuer Driver erstellt
 
 
