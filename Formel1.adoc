@@ -249,3 +249,8 @@ Ich lernte neue Components von MUI kennen wie z.B. Autocomplete oder Alert.
 Den Autocomplete habe ich dann gleich bei unserem Land input field ausprobiert und die Alerts erscheinen unten auf der Seite beim ausführen der CRUD operationen.
 
 === Joey
+Ich fand das Projekt sehr toll, es hat spass gemacht da man viele verschiedene Bereiche behandeln konnte. Besonders gut fand ich, dass das Thema frei Wählbar war, so viel es mir leichter,
+da ich mich mehr für das Thema intressierte als wenn es ein vorgegebenes Thema wäre.
+Einige Sachen fielen mir eher einfacher und andere etwas schwieriger, zum Beispiel gab es anfangs einige Probleme mit der Navigation oben, denn der Punkt, um anzuzeigen wo man ist wollt nicht richtig
+und im css hatte ich etwas länger bis ich wieder drin war. Ich fand es spannend im Backend und Frontend gleichzeitig zu arbeiten, da man so Abwechslung hatte und in beidem versteht was gerade abgeht.
+Die verwendete Material UI war für mich eher neu, da ich sie noch nicht wirklich kannte, aucgh so konnte ich einige neue Sachen lernen.

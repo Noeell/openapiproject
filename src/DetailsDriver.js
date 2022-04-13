@@ -39,14 +39,14 @@ function DetailsDriver() {
                                     {driver?.prename} {driver?.name}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Age: {driver?.age} <br/>
-                                    Country: {driver?.country}<br/>
-                                    Points: {driver?.points}
+                                    Alter: {driver?.age} <br/>
+                                    Land: {driver?.country}<br/>
+                                    Punkte: {driver?.points}
                                 </Typography>
                             </CardContent>
+                            <br/>
                             <CardActions>
-                                <Button size="small">Share</Button>
-                                <Button size="small">Learn More</Button>
+                                <Button size="small" onClick={() => window.location.href = window.location.hostname + "/#/drivers"}>all Drivers</Button>
                             </CardActions>
                         </Card>
                     </Col>
@@ -55,7 +55,7 @@ function DetailsDriver() {
                             <CardMedia
                                 component="img"
                                 height="300"
-                                image={"https://source.unsplash.com/300x300/?" + racingTeam?.name + " logo"}
+                                image={"https://source.unsplash.com/300x300/?" + racingTeam?.name + " formula 1 logo"}
                                 alt="green iguana"
                             />
                             <CardContent>
@@ -64,14 +64,13 @@ function DetailsDriver() {
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                     Team Boss: {racingTeam?.teamBoss} <br/>
-                                    Country: {racingTeam?.country}<br/>
-                                    Engine Producer: {racingTeam?.engineProducer}<br/>
-                                    Points: {racingTeam?.points}
+                                    Land: {racingTeam?.country}<br/>
+                                    Motorenhersteller: {racingTeam?.engineProducer}<br/>
+                                    Punkt: {racingTeam?.points}
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small">Share</Button>
-                                <Button size="small">Learn More</Button>
+                                <Button size="small" onClick={() => window.location.href = window.location.hostname + "/#/teams"}>all Teams</Button>
                             </CardActions>
                         </Card>
                     </Col>
