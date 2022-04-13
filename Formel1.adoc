@@ -102,7 +102,7 @@ Ich will selber entscheiden wie der Fahrer heisst etc.
 
 === Sequenz
 
-.Usecasediagramm neuer Fahrer
+.Sequenz neuer Fahrer
 [plantuml]
 ----
 @startuml
@@ -111,7 +111,7 @@ actor user
 
 user -> backend : POST /api/v1/f1/drivers
 note right: Alle Attribute manuell hinzufügen
-backend -> user : 201
+backend -> user : 200
 note left: Neuer Driver erstellt
 
 
@@ -125,7 +125,7 @@ Ich möchte in der Tabelle die wichtigsten Informationen sehen und einen Button,
 
 === Sequenz
 
-.Informationen zu Fahrer
+.Sequenz Informationen zu Fahrer
 [plantuml]
 ----
 @startuml
@@ -150,7 +150,7 @@ note left: For the Details
 Ich möchte sehen welche Rennstrecken es alles gibt.
 Ich möchte Informationen zu den Strecken sehen in einer Liste.
 
-.Informationen zu den Strecken
+.Sequenz Informationen zu den Strecken
 [plantuml]
 ----
 @startuml
