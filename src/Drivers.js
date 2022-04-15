@@ -48,9 +48,10 @@ function Drivers() {
 
     useEffect(() => {
         loadAllEntries();
-        if (window.location.href !== "http://localhost:3000/#/drivers"){
+        if (window.location.href !== "http://localhost:3000/#/drivers") {
             window.location.href = "http://localhost:3000/#/drivers";
-        };
+        }
+        ;
     }, [])
 
     useEffect(() => {
@@ -228,7 +229,9 @@ function Drivers() {
                     <Button className={"buttonGroup"} onClick={() => setInsertPressed(true)}>Insert</Button>
                     <Button className={"buttonGroup"} onClick={() => deleteRow(selectedRow)}
                             disabled={deleteDisabled}>Delete</Button>
-                    <Button className={"buttonGroup"} onClick={() => window.location.href = window.location.href + "/" + selectedRow} disabled={detailsDisabled}>Details</Button>
+                    <Button className={"buttonGroup"}
+                            onClick={() => window.location.href = window.location.href + "/" + selectedRow}
+                            disabled={detailsDisabled}>Details</Button>
                 </ButtonGroup>
             </Row>
         )
@@ -271,7 +274,13 @@ function Drivers() {
                         <TextField id="standard-basic" label="Last name" variant="standard"
                                    onChange={e => setLastName(e.target.value)}/>
                         <TextField id="standard-basic" label="age" variant="standard" type={"number"}
-                                   onChange={e => setAge(e.target.value)}/>
+                                   onChange={e => setAge(e.target.value)} InputProps={{
+                            inputProps: {
+                                min: 18,
+                                max: 99
+                            },
+                            lang: "en-US"
+                        }}/>
                         <Autocomplete
                             options={data}
                             onChange={(event, value) => setCountry(value?.label)}
@@ -290,7 +299,12 @@ function Drivers() {
                             renderInput={(params) => <TextField variant={"standard"} {...params} label="Country"/>}
                         />
                         <TextField id="standard-basic" label="Points" variant="standard" type={"number"}
-                                   onChange={e => setPoints(e.target.value)}/><br/><br/>
+                                   onChange={e => setPoints(e.target.value)} InputProps={{
+                            inputProps: {
+                                min: 0,
+                            },
+                            lang: "en-US"
+                        }}/><br/><br/>
                         <InputLabel variant={"standard"}>Racing Team</InputLabel>
                         <FormControl variant={"standard"} fullWidth>
                             <Select

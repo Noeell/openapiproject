@@ -224,7 +224,12 @@ export default function Tracks() {
                         <TextField id="standard-basic" label="Location" variant="standard"
                                    onChange={e => setLocation(e.target.value)}/>
                         <TextField id="standard-basic" label="Length" variant="standard" type={"number"}
-                                   onChange={e => setLenght(e.target.value)}/>
+                                   onChange={e => setLenght(e.target.value)} InputProps={{
+                            inputProps: {
+                                min: 0,
+                            },
+                            lang: "en-US"
+                        }}/>
                         <Autocomplete
                             options={data}
                             onChange={(event, value) => setCountry(value?.label)}
@@ -243,7 +248,12 @@ export default function Tracks() {
                             renderInput={(params) => <TextField variant={"standard"} {...params} label="Country"/>}
                         />
                         <TextField id="standard-basic" label="Rounds" variant="standard" type={"number"}
-                                   onChange={e => setRounds(e.target.value)}/><br/><br/>
+                                   onChange={e => setRounds(e.target.value)} InputProps={{
+                            inputProps: {
+                                min: 0,
+                            },
+                            lang: "en-US"
+                        }}/><br/><br/>
                         <Button onClick={insertEntry} width={"30px"}>Add Entry</Button><br/><br/>
                     </Card>
                 </Row>}<br/>

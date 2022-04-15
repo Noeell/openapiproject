@@ -242,7 +242,12 @@ function Teams() {
                             renderInput={(params) => <TextField variant={"standard"} {...params} label="Country"/>}
                         />
                         <TextField id="standard-basic" label="Points" variant="standard" type={"number"}
-                                   onChange={e => setPoints(e.target.value)}/><br/><br/>
+                                   onChange={e => setPoints(e.target.value)} InputProps={{
+                            inputProps: {
+                                min: 0,
+                            },
+                            lang: "en-US"
+                        }}/><br/><br/>
                         <Button onClick={insertEntry} width={"30px"}>Add Entry</Button><br/><br/>
                     </Card>
                 </Row>}<br/>
